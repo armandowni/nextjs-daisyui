@@ -11,9 +11,12 @@
   "dependencies": {
     "@tinqjs/tinjs-tw": "1.1.0",
     "daisyui": "^4.6.0",
+    "dudsjs-util": "^1.0.1",
     "next": "14.1.0",
+    "ramda": "^0.29.1",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "rxjs": "^7.8.1"
   },
   "devDependencies": {
     "@types/node": "^20",
