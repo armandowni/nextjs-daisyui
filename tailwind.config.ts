@@ -15,6 +15,10 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [
+    // require("daisyui"),
+    require("@tailwindcss/forms"),
+    require("tailwindcss-interaction-variants"),
+  ],
 };
 export default config;

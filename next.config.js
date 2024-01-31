@@ -1,11 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   compiler: {
-    styledComponents: {
-      displayName: true,
-      ssr: false,
-      fileName: false,
-    },
+    styledComponents: true,
   },
   eslint: {
     ignoreDuringBuilds: false,
