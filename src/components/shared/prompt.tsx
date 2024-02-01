@@ -59,5 +59,6 @@ export const PromptDelete = styled(RefPromptDelete)`
     ${tw`flex`}
     ${tw`items-center`}
     ${tw`gap-5`}
+    ${tw`text-black`}
   }
 `;

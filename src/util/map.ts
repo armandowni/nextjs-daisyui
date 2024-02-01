@@ -41,3 +41,10 @@ export const mappingFlatMenuUrl = (menu) => {
 
   return newArrayMenu;
 };
+
+export const mappingDataEdit = (data: any) => {
+  const id = data?.id;
+  delete data?.id;
+  if (data?.no) delete data?.no;
+  return { id: id, data: data };
+};

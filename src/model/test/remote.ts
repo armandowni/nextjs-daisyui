@@ -5,8 +5,7 @@ export const execTestRequest = execFetch(getPathFrom("/api/v1/test"));
 
 export const getDataTestsAll = () => execTestRequest(GET(""));
 
-export const addDataTest = (data: any) =>
-  execTestRequest(POST("/create", data));
+export const addDataTest = (data: any) => execTestRequest(POST("", data));
 
 export const editDataTest = (id: any, data: any) =>
   execTestRequest(PUT(`/${id}`, data));

@@ -25,33 +25,38 @@ export const TableTest = () => {
 
   const { handleSubmit, register, setValue } = useForm();
   const [dataTest] = useObservable(dataTestTable$, null as any);
+
   useEffect(() => emitTestReload({}), []);
 
+  const clearForm = (data?: any) => {
+    setValue("name", data?.name || null);
+    setValue("age", data?.age || null);
+  };
+
   useEffect(() => {
-    if (!dataForm) {
-      setValue("name", null);
-      setValue("age", null);
-      return;
-    }
-    setValue("name", dataForm?.name);
-    setValue("age", dataForm?.age);
+    // console.log(dataForm);
+
+    if (!dataForm) return clearForm();
+
+    clearForm(dataForm);
   }, [dataForm]);
 
   const settings: ITableSettings = {
     features: {
       action: {
-        formatter: (_, item) => (
-          <div className="flex items-center gap-3">
-            <ActionButton
-              icon={faPencilAlt}
-              onClick={() => edit(item)}
-            ></ActionButton>
-            <ActionButton
-              icon={faTrash}
-              onClick={() => deleteData(item)}
-            ></ActionButton>
-          </div>
-        ),
+        formatter: (_, item) =>
+          (item.status & 4) == 4 ? (
+            <div className="flex items-center gap-3">
+              <ActionButton
+                icon={faPencilAlt}
+                onClick={() => edit(item)}
+              ></ActionButton>
+              <ActionButton
+                icon={faTrash}
+                onClick={() => deleteData(item)}
+              ></ActionButton>
+            </div>
+          ) : null,
       },
       status: {
         formatter: (_, item) =>
@@ -59,7 +64,9 @@ export const TableTest = () => {
             ? "NUXT APP"
             : (item?.status & 2) == 2
             ? "NUXT 3 APP"
-            : "NEXT APP",
+            : (item?.status & 4) == 4
+            ? "NEXT APP"
+            : "-",
       },
     },
   };
@@ -72,7 +79,10 @@ export const TableTest = () => {
       <div className="w-full border-0 md:border-2 rounded-md p-5">
         <Button
           className="bg-blue-600 rounded-md text-white px-5 py-2 mb-5 text-sm"
-          onClick={() => add()}
+          onClick={() => {
+            add();
+            clearForm();
+          }}
         >
           Add Data
         </Button>
@@ -82,11 +92,12 @@ export const TableTest = () => {
             {/* <span className="text-red-500">{{ errorMessage }}</span> */}
             <form
               className="flex flex-col gap-10 text-black"
-              onSubmit={handleSubmit((data) =>
-                dataForm
+              onSubmit={handleSubmit((data) => {
+                close();
+                return dataForm
                   ? TEST_EDIT({ ...dataForm, ...data })
-                  : TEST_ADD({ ...data })
-              )}
+                  : TEST_ADD({ ...data });
+              })}
             >
               <div className="flex flex-col gap-3">
                 <Field label={"Name"} required="true">
@@ -106,7 +117,10 @@ export const TableTest = () => {
               </div>
 
               <div className="flex gap-10" id="buttons">
-                <button className="bg-blue-500 text-white px-4 py-2 rounded-xl">
+                <button
+                  className="bg-blue-500 text-white px-4 py-2 rounded-xl"
+                  type="submit"
+                >
                   Submit
                 </button>
                 <button
@@ -131,7 +145,7 @@ export const TableTest = () => {
             setValue("age", null);
             close();
           }}
-          message={`Are you sure want to delete ${dataForm?.name}`}
+          message={`Are you sure want to delete ${dataForm?.name}?`}
           data={dataForm}
           onDelete={TEST_DELETE}
         />

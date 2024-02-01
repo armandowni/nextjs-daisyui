@@ -11,8 +11,9 @@ export const useFormDialog = (initialValue?: any) => {
   const [dataForm, setDataForm] = useState(initialValue);
 
   const add = (data?: any) => {
-    if (data) setDataForm(data);
     setOpen(true);
+    if (data) return setDataForm(data);
+    else return setDataForm(null);
   };
   const edit = (data: any) => {
     setOpen(true);
@@ -23,6 +24,7 @@ export const useFormDialog = (initialValue?: any) => {
     setDataForm(data);
   };
   const close = () => {
+    setDataForm(null);
     setOpenDelete(false);
     setOpen(false);
   };
