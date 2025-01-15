@@ -1,7 +1,9 @@
 import { switchMap } from "rxjs";
 import { DELETE, execFetch, GET, getPathFrom, POST, PUT } from "../../util/api";
 
-export const execTestRequest = execFetch(getPathFrom("/api/v1/test"));
+export const execTestRequest = execFetch(
+  getPathFrom(`${process.env.NEXT_PUBLIC_API_PATHNAME}/api/v1/test`)
+);
 
 export const getDataTestsAll = () => execTestRequest(GET(""));
 

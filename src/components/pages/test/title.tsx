@@ -5,7 +5,7 @@ const Daisy = () => (
 );
 
 const Next = () => (
-  <div className="font-bold text-transparent text-4xl lg:text-8xl bg-clip-text bg-gradient-to-br from-gray-400 to-black">
+  <div className="font-bold text-transparent text-4xl lg:text-8xl bg-clip-text bg-gradient-to-br from-gray-400 to-gray-600">
     NEXT JS
   </div>
 );

@@ -60,13 +60,15 @@ export const TableTest = () => {
       },
       status: {
         formatter: (_, item) =>
-          (item?.status & 1) == 1
-            ? "NUXT APP"
-            : (item?.status & 2) == 2
-            ? "NUXT 3 APP"
-            : (item?.status & 4) == 4
-            ? "NEXT APP"
-            : "-",
+          (item.status & 2) == 2
+            ? "Nuxt App 3"
+            : (item.status & 1) == 1
+            ? "Nuxt App 2"
+            : (item.status & 4) == 4
+            ? "Nextjs App"
+            : (item.status & 8) == 8
+            ? "Reactjs-Generouted App"
+            : "Unknown",
       },
     },
   };
@@ -151,7 +153,15 @@ export const TableTest = () => {
         />
 
         <Table
-          data={dataTest || []}
+          data={
+            dataTest
+              ? dataTest?.sort((a: any, b: any) => {
+                  const aStatus = (a.status & 4) === 4 ? 1 : 0;
+                  const bStatus = (b.status & 4) === 4 ? 1 : 0;
+                  return bStatus - aStatus;
+                })
+              : []
+          }
           count={dataTest?.length || 0}
           settings={settings}
           default_columns={DEFAULT_COLUMNS_TEST}

@@ -8,13 +8,12 @@ export const dataTestTable$ = query$.pipe(
     getDataTestsAll().pipe(
       switchMap((result) => result?.json()),
       switchMap((tests: any) =>
-        from(tests?.data).pipe(
+        from(tests?.data[0]).pipe(
           map((test: any, index) => ({
             ...test,
             no: index + 1,
           })),
-          toArray(),
-          // tap(console.log)
+          toArray()
         )
       )
     )
